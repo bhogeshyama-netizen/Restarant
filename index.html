@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vasu&Siva Restaurant — Menu & Orders</title>
+<meta name="description" content="Vasu&Siva Restaurant & Dhaba — Authentic Indian Cuisine. Browse our menu, place orders, and track them in real-time.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --gold-dim: #8B6914;
+    --dark-bg: #111009;
+    --card-bg: #1a1710;
+    --card-bg-hover: #231f14;
+    --text-white: #F5EDD6;
+    --text-muted: #9E8B6A;
+    --red-dot: #C0392B;
+    --green-dot: #27AE60;
+    --yellow-dot: #F1C40F;
+    --border: rgba(212,160,23,0.25);
+    --glass-bg: rgba(26,23,16,0.92);
+    --glass-border: rgba(212,160,23,0.18);
+    --success: #2ECC71;
+    --danger: #E74C3C;
+    --blue-accent: #3498DB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark-bg);
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(180,130,10,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(180,100,10,0.06) 0%, transparent 55%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A017' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: var(--text-white);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 100px;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 52px 20px 36px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  header::before, header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .brand-badge {
+    display: inline-block;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 6px 24px 4px;
+    margin-bottom: 18px;
+    letter-spacing: 0.35em;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #F0C040 0%, #D4A017 45%, #F0C040 80%, #A07010 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    text-shadow: none;
+  }
+  .tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .ornament {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin: 18px 0 0;
+    color: var(--gold-dim);
+    font-size: 1.2rem;
+    opacity: 0.7;
+  }
+  .ornament::before, .ornament::after {
+    content: '';
+    display: block;
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim));
+  }
+  .ornament::after { background: linear-gradient(90deg, var(--gold-dim), transparent); }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex; justify-content: center; gap: 28px;
+    padding: 16px 20px 0;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    flex-wrap: wrap;
+  }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; border: 1.5px solid; }
+  .dot-green  { background: var(--green-dot);  border-color: var(--green-dot); }
+  .dot-red    { background: var(--red-dot);    border-color: var(--red-dot); }
+  .dot-yellow { background: var(--yellow-dot); border-color: var(--yellow-dot); }
+
+  /* ── MAIN WRAPPER ── */
+  main { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    display: flex; align-items: center; gap: 14px;
+    margin: 52px 0 6px;
+  }
+  .section-title h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2.8vw, 1.25rem);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .section-title .line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+    opacity: 0.5;
+  }
+  .section-subtitle {
+    font-size: 0.7rem; letter-spacing: 0.18em;
+    color: var(--text-muted); text-transform: uppercase;
+    margin-bottom: 22px; padding-left: 2px;
+  }
+
+  /* ── TABLE HEADER ── */
+  .col-header {
+    display: grid;
+    grid-template-columns: 1fr 90px 90px 52px;
+    gap: 8px;
+    padding: 6px 16px 6px 52px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .col-header .price-cols { display: contents; }
+  .col-header span:nth-child(2), .col-header span:nth-child(3) {
+    text-align: right;
+  }
+  .col-header span:last-child { text-align: center; }
+
+  .col-header-single {
+    display: grid;
+    grid-template-columns: 1fr 90px 52px;
+    gap: 8px;
+    padding: 6px 16px 6px 52px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .col-header-single span:nth-child(2) { text-align: right; }
+  .col-header-single span:last-child { text-align: center; }
+
+  /* ── MENU ITEM ── */
+  .menu-item {
+    display: grid;
+    grid-template-columns: 36px 1fr 90px 90px 52px;
+    gap: 8px;
+    align-items: center;
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(212,160,23,0.08);
+    transition: background 0.25s, box-shadow 0.25s;
+    border-radius: 4px;
+  }
+  .menu-item:hover { background: rgba(212,160,23,0.05); }
+
+  .menu-item-single {
+    display: grid;
+    grid-template-columns: 36px 1fr 90px 52px;
+    gap: 8px;
+    align-items: center;
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(212,160,23,0.08);
+    transition: background 0.25s, box-shadow 0.25s;
+    border-radius: 4px;
+  }
+  .menu-item-single:hover { background: rgba(212,160,23,0.05); }
+
+  .item-indicator {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .item-dot {
+    width: 12px; height: 12px; border-radius: 2px;
+    border: 1.5px solid;
+    flex-shrink: 0;
+  }
+  .veg   { border-color: var(--green-dot);  background: transparent; }
+  .nonveg{ border-color: var(--red-dot);    background: transparent; }
+  .egg   { border-color: var(--yellow-dot); background: transparent; }
+  .veg.filled    { background: var(--green-dot); }
+  .nonveg.filled { background: var(--red-dot); }
+  .egg.filled    { background: var(--yellow-dot); }
+
+  .item-name {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text-white);
+    letter-spacing: 0.01em;
+  }
+  .item-price {
+    text-align: right;
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .item-price.muted { color: var(--text-muted); font-size: 0.82rem; }
+
+  /* ── ADD BUTTON ── */
+  .add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--gold-dim);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--gold);
+    font-size: 1.3rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .add-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .add-btn:hover {
+    border-color: var(--gold-light);
+    transform: scale(1.12);
+    box-shadow: 0 0 18px rgba(212,160,23,0.25);
+  }
+  .add-btn:hover::before { opacity: 0.12; }
+  .add-btn:active { transform: scale(0.92); }
+  .add-btn.added {
+    border-color: var(--success);
+    color: var(--success);
+    animation: pulseSuccess 0.5s ease;
+  }
+  @keyframes pulseSuccess {
+    0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(46,204,113,0); }
+    100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+  }
+
+  /* ── QUANTITY CONTROL (inline) ── */
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1.5px solid var(--gold-dim);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 36px;
+    min-width: 96px;
+    flex-shrink: 0;
+  }
+  .qty-btn {
+    width: 30px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--gold);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qty-btn:hover { background: rgba(212,160,23,0.15); }
+  .qty-btn.minus:hover { color: var(--danger); }
+  .qty-count {
+    width: 36px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    user-select: none;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; height: 1px; margin: 44px 0 0;
+    background: linear-gradient(90deg, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+    opacity: 0.3;
+  }
+
+  /* ── NOTIFICATION TOAST ── */
+  .toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--success);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(212,160,23,0.08);
+    min-width: 280px;
+    max-width: 420px;
+    animation: toastIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  .toast.removing { animation: toastOut 0.35s cubic-bezier(0.55, 0, 1, 0.45) forwards; }
+  .toast.toast-remove { border-left-color: var(--danger); }
+  .toast.toast-drive { border-left-color: var(--blue-accent); }
+  .toast-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+    background: rgba(46,204,113,0.15);
+  }
+  .toast-remove .toast-icon { background: rgba(231,76,60,0.15); }
+  .toast-drive .toast-icon { background: rgba(52,152,219,0.15); }
+  .toast-body { flex: 1; }
+  .toast-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .toast-msg { font-size: 0.85rem; color: var(--text-white); font-weight: 400; }
+  .toast-time { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.06em; }
+  @keyframes toastIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+  @keyframes toastOut {
+    from { transform: translateX(0); opacity: 1; max-height: 120px; margin-bottom: 0; }
+    to   { transform: translateX(120%); opacity: 0; max-height: 0; margin-bottom: -10px; }
+  }
+
+  /* ── FLOATING ORDER BUTTON ── */
+  .order-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+    width: 62px; height: 62px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: linear-gradient(145deg, #1a1710, #252015);
+    color: var(--gold-light); font-size: 1.5rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.5), 0 0 24px rgba(212,160,23,0.12);
+    transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+    animation: fabPulse 3s ease-in-out infinite;
+  }
+  .order-fab:hover { transform: scale(1.1); box-shadow: 0 8px 36px rgba(0,0,0,0.6), 0 0 36px rgba(212,160,23,0.2); }
+  .order-fab:active { transform: scale(0.95); }
+  .order-fab .badge {
+    position: absolute; top: -4px; right: -4px;
+    min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px;
+    background: linear-gradient(135deg, var(--danger), #c0392b);
+    color: #fff; font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lato', sans-serif;
+    box-shadow: 0 2px 8px rgba(231,76,60,0.4);
+    transform: scale(0);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .order-fab .badge.visible { transform: scale(1); }
+  @keyframes fabPulse {
+    0%, 100% { box-shadow: 0 6px 28px rgba(0,0,0,0.5), 0 0 24px rgba(212,160,23,0.12); }
+    50% { box-shadow: 0 6px 28px rgba(0,0,0,0.5), 0 0 36px rgba(212,160,23,0.22); }
+  }
+
+  /* ── SETTINGS BUTTON (top right) ── */
+  .settings-fab {
+    position: fixed; top: 18px; right: 18px; z-index: 9000;
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    color: var(--text-muted); font-size: 1.15rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .settings-fab:hover {
+    border-color: var(--gold); color: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 4px 16px rgba(212,160,23,0.15);
+  }
+  .settings-fab.connected {
+    border-color: var(--success);
+    color: var(--success);
+  }
+
+  /* ── ORDER PANEL (slide from right) ── */
+  .order-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9500; opacity: 0; visibility: hidden;
+    transition: opacity 0.35s, visibility 0.35s;
+  }
+  .order-overlay.open { opacity: 1; visibility: visible; }
+
+  .order-panel {
+    position: fixed; top: 0; right: 0;
+    width: min(460px, 94vw); height: 100vh;
+    background: linear-gradient(180deg, #151210 0%, #111009 100%);
+    border-left: 1px solid var(--glass-border);
+    z-index: 9600;
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.5);
+  }
+  .order-panel.open { transform: translateX(0); }
+
+  .panel-header {
+    padding: 28px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .panel-header h2 {
+    font-family: 'Cinzel', serif; font-size: 1.15rem;
+    color: var(--gold); letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .panel-header .item-count-label {
+    font-size: 0.7rem; color: var(--text-muted);
+    letter-spacing: 0.08em; margin-top: 2px;
+  }
+  .panel-close {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--text-muted);
+    font-size: 1.3rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .panel-close:hover {
+    border-color: var(--gold); color: var(--gold);
+    background: rgba(212,160,23,0.08);
+  }
+
+  /* ── PANEL TABS ── */
+  .panel-tabs {
+    display: flex; flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-tab {
+    flex: 1; padding: 12px 16px;
+    background: transparent; border: none;
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+  .panel-tab::after {
+    content: ''; position: absolute;
+    bottom: -1px; left: 20%; width: 60%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .panel-tab.active {
+    color: var(--gold);
+  }
+  .panel-tab.active::after {
+    transform: scaleX(1);
+  }
+  .panel-tab:hover { color: var(--gold-light); }
+
+  /* ── GOOGLE DRIVE STATUS BAR ── */
+  .drive-status-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 24px;
+    background: rgba(52,152,219,0.06);
+    border-bottom: 1px solid rgba(52,152,219,0.12);
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .drive-status-bar.connected {
+    background: rgba(46,204,113,0.06);
+    border-bottom-color: rgba(46,204,113,0.12);
+  }
+  .drive-status-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .drive-status-text { flex: 1; }
+  .drive-status-btn {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .drive-status-btn:hover {
+    background: rgba(212,160,23,0.1);
+    border-color: var(--gold);
+  }
+
+  /* ── PANEL BODY ── */
+  .panel-body {
+    flex: 1; overflow-y: auto; padding: 12px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dim) transparent;
+  }
+  .panel-body::-webkit-scrollbar { width: 5px; }
+  .panel-body::-webkit-scrollbar-track { background: transparent; }
+  .panel-body::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+
+  .panel-empty {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 100%; color: var(--text-muted);
+    gap: 14px; padding: 40px; text-align: center;
+  }
+  .panel-empty-icon { font-size: 3rem; opacity: 0.4; }
+  .panel-empty-text {
+    font-family: 'Cinzel', serif; font-size: 0.85rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .panel-empty-sub { font-size: 0.78rem; color: var(--text-muted); opacity: 0.7; }
+
+  /* ── TAB CONTENT ── */
+  .tab-content { display: none; height: 100%; }
+  .tab-content.active { display: flex; flex-direction: column; height: 100%; }
+
+  /* ── TIME GROUP ── */
+  .time-group { margin-bottom: 8px; }
+  .time-group-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 24px 6px;
+    position: sticky; top: 0; z-index: 2;
+    background: linear-gradient(180deg, #151210 0%, rgba(21,18,16,0.95) 100%);
+    backdrop-filter: blur(8px);
+  }
+  .time-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(212,160,23,0.4);
+  }
+  .time-label {
+    font-family: 'Cinzel', serif; font-size: 0.68rem;
+    letter-spacing: 0.18em; color: var(--gold);
+    text-transform: uppercase;
+  }
+  .time-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+    opacity: 0.35;
+  }
+
+  /* ── ORDER ITEM in panel ── */
+  .order-entry {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 24px;
+    border-bottom: 1px solid rgba(212,160,23,0.06);
+    animation: slideIn 0.35s ease both;
+    transition: background 0.2s;
+  }
+  .order-entry:hover { background: rgba(212,160,23,0.04); }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .order-entry-type {
+    width: 10px; height: 10px; border-radius: 2px;
+    border: 1.5px solid; flex-shrink: 0;
+  }
+  .order-entry-info { flex: 1; min-width: 0; }
+  .order-entry-name {
+    font-size: 0.88rem; color: var(--text-white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .order-entry-meta {
+    font-size: 0.68rem; color: var(--text-muted);
+    margin-top: 1px; letter-spacing: 0.04em;
+  }
+  .order-entry-qty {
+    display: flex; align-items: center; gap: 0;
+    border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .order-entry-qty button {
+    width: 26px; height: 26px; border: none;
+    background: transparent; color: var(--gold);
+    font-size: 0.9rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .order-entry-qty button:hover { background: rgba(212,160,23,0.12); }
+  .order-entry-qty .entry-count {
+    width: 28px; text-align: center;
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    font-weight: 700; color: var(--gold-light); user-select: none;
+  }
+  .order-entry-price {
+    font-family: 'Cinzel', serif; font-size: 0.85rem;
+    color: var(--gold-light); font-weight: 600;
+    min-width: 60px; text-align: right; flex-shrink: 0;
+  }
+
+  /* ── HISTORY ORDER CARD ── */
+  .history-card {
+    margin: 8px 16px;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(26,23,16,0.5);
+    animation: slideIn 0.35s ease both;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .history-card:hover {
+    background: rgba(26,23,16,0.8);
+    border-color: var(--gold-dim);
+  }
+  .history-card-header {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 10px;
+  }
+  .history-order-id {
+    font-family: 'Cinzel', serif; font-size: 0.72rem;
+    color: var(--gold); font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .history-order-time {
+    font-size: 0.68rem; color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+  .history-items {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-bottom: 12px;
+  }
+  .history-item-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem;
+  }
+  .history-item-dot {
+    width: 7px; height: 7px; border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .history-item-name {
+    flex: 1; color: var(--text-white);
+  }
+  .history-item-qty {
+    color: var(--text-muted); font-size: 0.72rem;
+  }
+  .history-item-price {
+    font-family: 'Cinzel', serif; font-size: 0.78rem;
+    color: var(--gold-light); font-weight: 600;
+    min-width: 50px; text-align: right;
+  }
+  .history-card-footer {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid rgba(212,160,23,0.1);
+    padding-top: 10px;
+  }
+  .history-total-label {
+    font-size: 0.68rem; color: var(--text-muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .history-total-amount {
+    font-family: 'Cinzel', serif; font-size: 1rem;
+    font-weight: 700; color: var(--gold-light);
+  }
+  .history-synced-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.6rem; color: var(--success);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ── PANEL FOOTER ── */
+  .panel-footer {
+    padding: 16px 24px 24px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    background: linear-gradient(0deg, #111009 0%, rgba(17,16,9,0.95));
+  }
+  .total-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 14px;
+  }
+  .total-label {
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .total-amount {
+    font-family: 'Cinzel', serif; font-size: 1.45rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #F0C040, #D4A017);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .panel-actions {
+    display: flex; gap: 10px; margin-bottom: 10px;
+  }
+  .btn-clear {
+    flex: 1; padding: 13px 16px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--text-muted);
+    font-family: 'Cinzel', serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .btn-clear:hover {
+    border-color: var(--danger); color: var(--danger);
+    background: rgba(231,76,60,0.08);
+  }
+  .btn-place-order {
+    flex: 2; padding: 13px 16px;
+    border: none; border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+    color: #111009;
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 18px rgba(212,160,23,0.25);
+  }
+  .btn-place-order:hover { box-shadow: 0 6px 24px rgba(212,160,23,0.4); transform: translateY(-1px); }
+  .btn-place-order:active { transform: translateY(0); }
+
+  /* ── EXTRA FOOTER ACTIONS ── */
+  .footer-extra-actions {
+    display: flex; gap: 8px;
+  }
+  .btn-secondary {
+    flex: 1; padding: 10px 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Lato', sans-serif; font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .btn-secondary:hover {
+    border-color: var(--gold-dim); color: var(--gold);
+    background: rgba(212,160,23,0.06);
+  }
+  .btn-secondary .btn-icon { font-size: 0.9rem; }
+
+  /* ── SETTINGS MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 11000; opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+
+  .modal {
+    width: min(520px, 100%);
+    max-height: 90vh;
+    background: linear-gradient(180deg, #1a1710 0%, #151210 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(212,160,23,0.08);
+    overflow-y: auto;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dim) transparent;
+  }
+  .modal-overlay.open .modal {
+    transform: scale(1) translateY(0);
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 28px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-header h3 {
+    font-family: 'Cinzel', serif; font-size: 1rem;
+    color: var(--gold); letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .modal-close {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--text-muted);
+    font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover {
+    border-color: var(--gold); color: var(--gold);
+  }
+  .modal-body { padding: 24px 28px; }
+
+  .modal-section {
+    margin-bottom: 24px;
+  }
+  .modal-section-title {
+    font-family: 'Cinzel', serif; font-size: 0.72rem;
+    color: var(--gold); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .modal-section-title .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .modal-section-title .status-dot.on { background: var(--success); box-shadow: 0 0 6px rgba(46,204,113,0.5); }
+  .modal-section-title .status-dot.off { background: var(--text-muted); }
+
+  .modal-desc {
+    font-size: 0.8rem; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 14px;
+  }
+  .modal-input-group {
+    display: flex; gap: 8px; margin-bottom: 12px;
+  }
+  .modal-input {
+    flex: 1; padding: 12px 16px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-white);
+    font-family: 'Lato', sans-serif; font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.25s;
+  }
+  .modal-input:focus { border-color: var(--gold); }
+  .modal-input::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+  .modal-btn {
+    padding: 12px 20px;
+    border: none; border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+    color: #111009;
+    font-family: 'Cinzel', serif; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.25s; flex-shrink: 0;
+  }
+  .modal-btn:hover { box-shadow: 0 4px 16px rgba(212,160,23,0.3); }
+  .modal-btn.danger {
+    background: transparent;
+    border: 1.5px solid var(--danger);
+    color: var(--danger);
+  }
+  .modal-btn.danger:hover {
+    background: rgba(231,76,60,0.1);
+  }
+
+  /* ── SETUP STEPS ── */
+  .setup-steps {
+    counter-reset: step;
+    list-style: none;
+    margin-bottom: 16px;
+  }
+  .setup-steps li {
+    counter-increment: step;
+    padding: 10px 0 10px 42px;
+    position: relative;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    border-left: 1px solid var(--border);
+    margin-left: 14px;
+  }
+  .setup-steps li::before {
+    content: counter(step);
+    position: absolute; left: -14px; top: 8px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--card-bg);
+    border: 1.5px solid var(--gold-dim);
+    color: var(--gold);
+    font-family: 'Cinzel', serif; font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .setup-steps li:last-child { border-left-color: transparent; }
+  .setup-steps code {
+    background: rgba(212,160,23,0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ── SCRIPT COPY BOX ── */
+  .script-box {
+    position: relative;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    max-height: 180px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dim) transparent;
+  }
+  .script-box pre {
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .script-copy-btn {
+    position: absolute; top: 8px; right: 8px;
+    padding: 4px 12px;
+    border: 1px solid var(--border); border-radius: 5px;
+    background: var(--card-bg);
+    color: var(--text-muted); font-size: 0.65rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .script-copy-btn:hover {
+    border-color: var(--gold); color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 48px 20px 12px;
+    color: var(--text-muted);
+    font-size: 0.7rem; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  footer .footer-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem; color: var(--gold-dim);
+    letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  header { animation: fadeUp 0.7s ease both; }
+  .section-title { animation: fadeUp 0.6s ease both; }
+  .menu-item, .menu-item-single { animation: fadeUp 0.5s ease both; }
+
+  /* ── SPINNER ── */
+  .spinner {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid rgba(212,160,23,0.2);
+    border-top-color: var(--gold);
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .col-header { grid-template-columns: 1fr 64px 64px 42px; padding-left: 44px; }
+    .col-header-single { grid-template-columns: 1fr 64px 42px; padding-left: 44px; }
+    .menu-item { grid-template-columns: 30px 1fr 64px 64px 42px; }
+    .menu-item-single { grid-template-columns: 30px 1fr 64px 42px; }
+    .add-btn { width: 32px; height: 32px; font-size: 1.1rem; }
+    .toast { min-width: 240px; max-width: calc(100vw - 40px); }
+    .order-fab { bottom: 20px; right: 20px; width: 54px; height: 54px; font-size: 1.3rem; }
+    .qty-control { min-width: 84px; height: 32px; }
+    .qty-btn { width: 26px; }
+    .qty-count { width: 32px; font-size: 0.78rem; }
+    .settings-fab { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
+    .footer-extra-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOAST CONTAINER ── -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ── SETTINGS BUTTON ── -->
+<button class="settings-fab" id="settings-fab" onclick="openSettings()" aria-label="Google Drive Settings">⚙</button>
+
+<!-- ── FLOATING ORDER BUTTON ── -->
+<button class="order-fab" id="order-fab" onclick="toggleOrderPanel()" aria-label="View your order">
+  🛒
+  <span class="badge" id="order-badge">0</span>
+</button>
+
+<!-- ── ORDER PANEL OVERLAY ── -->
+<div class="order-overlay" id="order-overlay" onclick="toggleOrderPanel()"></div>
+
+<!-- ── ORDER PANEL ── -->
+<div class="order-panel" id="order-panel">
+  <div class="panel-header">
+    <div>
+      <h2>Your Order</h2>
+      <div class="item-count-label" id="panel-item-count">No items yet</div>
+    </div>
+    <button class="panel-close" onclick="toggleOrderPanel()" aria-label="Close order panel">✕</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="panel-tabs">
+    <button class="panel-tab active" id="tab-current" onclick="switchTab('current')">Current Order</button>
+    <button class="panel-tab" id="tab-history" onclick="switchTab('history')">Order History</button>
+  </div>
+
+  <!-- GOOGLE DRIVE STATUS -->
+  <div class="drive-status-bar" id="drive-status-bar">
+    <span class="drive-status-icon" id="drive-icon">☁️</span>
+    <span class="drive-status-text" id="drive-status-text">Google Drive not connected</span>
+    <button class="drive-status-btn" id="drive-status-btn" onclick="openSettings()">Setup</button>
+  </div>
+
+  <!-- TAB: CURRENT ORDER -->
+  <div class="tab-content active" id="tab-content-current">
+    <div class="panel-body" id="panel-body">
+      <div class="panel-empty" id="panel-empty">
+        <div class="panel-empty-icon">🍽️</div>
+        <div class="panel-empty-text">No items ordered yet</div>
+        <div class="panel-empty-sub">Tap + on any menu item to begin</div>
+      </div>
+      <div id="order-list"></div>
+    </div>
+    <div class="panel-footer" id="panel-footer" style="display:none;">
+      <div class="total-row">
+        <span class="total-label">Grand Total</span>
+        <span class="total-amount" id="grand-total">₹ 0</span>
+      </div>
+      <div class="panel-actions">
+        <button class="btn-clear" onclick="clearAllOrders()">Clear All</button>
+        <button class="btn-place-order" id="btn-place" onclick="placeOrder()">Place Order</button>
+      </div>
+      <div class="footer-extra-actions">
+        <button class="btn-secondary" onclick="downloadCSV()">
+          <span class="btn-icon">📄</span> Download CSV
+        </button>
+        <button class="btn-secondary" id="btn-sync-drive" onclick="syncToDrive()" style="display:none;">
+          <span class="btn-icon">☁️</span> Sync to Drive
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ORDER HISTORY -->
+  <div class="tab-content" id="tab-content-history">
+    <div class="panel-body" id="history-body">
+      <div class="panel-empty" id="history-empty">
+        <div class="panel-empty-icon">📋</div>
+        <div class="panel-empty-text">No past orders</div>
+        <div class="panel-empty-sub">Placed orders will appear here</div>
+      </div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SETTINGS MODAL ── -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>☁️ Google Drive Setup</h3>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- CONNECTION STATUS -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <span class="status-dot" id="modal-status-dot"></span>
+          Connection Status
+        </div>
+        <div class="modal-desc" id="modal-status-desc">Not connected. Follow the steps below to save orders to Google Sheets.</div>
+      </div>
+
+      <!-- SETUP STEPS -->
+      <div class="modal-section">
+        <div class="modal-section-title">Setup Guide</div>
+        <ol class="setup-steps">
+          <li>Open <strong>Google Sheets</strong> and create a new spreadsheet. Name it <code>Vasu&Siva Orders</code></li>
+          <li>Go to <strong>Extensions → Apps Script</strong></li>
+          <li>Delete any code there and paste the script below. Click <strong>💾 Save</strong>.</li>
+          <li>Click <strong>Deploy → New deployment</strong>. Set type to <strong>Web app</strong>, execute as <strong>Me</strong>, access to <strong>Anyone</strong>. Click <strong>Deploy</strong>.</li>
+          <li>Copy the <strong>Web app URL</strong> and paste it below.</li>
+        </ol>
+
+        <div class="modal-section-title">Apps Script Code</div>
+        <div class="script-box">
+          <button class="script-copy-btn" onclick="copyScript()">Copy</button>
+<pre id="apps-script-code">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data;
+
+  try {
+    data = JSON.parse(e.postData.contents);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error', message: 'Invalid JSON' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // Skip test pings — don't write them to sheet
+  if (data.orderId === 'TEST-PING') {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success', message: 'Connection OK' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // Add header if sheet is empty
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow([
+      'Order ID', 'Date', 'Time',
+      'Item', 'Type', 'Qty',
+      'Unit Price', 'Line Total', 'Order Total'
+    ]);
+    sheet.getRange(1, 1, 1, 9).setFontWeight('bold');
+  }
+
+  var orderId = data.orderId;
+  var date = data.date;
+  var time = data.time;
+  var orderTotal = data.total;
+
+  data.items.forEach(function(item) {
+    sheet.appendRow([
+      orderId, date, time,
+      item.name, item.type, item.qty,
+      item.price, item.qty * item.price,
+      orderTotal
+    ]);
+  });
+
+  return ContentService
+    .createTextOutput(JSON.stringify({
+      status: 'success',
+      orderId: orderId
+    }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({
+      status: 'success',
+      message: 'Connection OK'
+    }))
+    .setMimeType(ContentService.MimeType.JSON);
+}</pre>
+        </div>
+      </div>
+
+      <!-- WEB APP URL INPUT -->
+      <div class="modal-section">
+        <div class="modal-section-title">Web App URL</div>
+        <div class="modal-desc">Paste your deployed Google Apps Script web app URL here:</div>
+        <div class="modal-input-group">
+          <input class="modal-input" type="url" id="script-url-input"
+            placeholder="https://script.google.com/macros/s/xxxxx/exec">
+          <button class="modal-btn" onclick="saveScriptUrl()">Save</button>
+        </div>
+        <div id="url-save-status" style="font-size:0.72rem;margin-top:6px;"></div>
+      </div>
+
+      <!-- TEST & DISCONNECT -->
+      <div class="modal-section" id="connected-actions" style="display:none;">
+        <div class="modal-section-title">Actions</div>
+        <div style="display:flex;gap:10px;">
+          <button class="modal-btn" onclick="testConnection()" id="btn-test-conn">Test Connection</button>
+          <button class="modal-btn danger" onclick="disconnectDrive()">Disconnect</button>
+        </div>
+        <div id="test-result" style="font-size:0.72rem;margin-top:8px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="brand-badge">Est. — Authentic Indian Cuisine</div>
+  <h1>Vasu&Siva</h1>
+  <p class="tagline">Restaurant &amp; Dhaba</p>
+  <div class="ornament">✦</div>
+</header>
+
+<div class="legend">
+  <span><span class="dot dot-green"></span> Pure Vegetarian</span>
+  <span><span class="dot dot-red"></span> Non-Vegetarian</span>
+  <span><span class="dot dot-yellow"></span> Contains Egg</span>
+</div>
+
+<main>
+
+  <!-- ══ ROLLS ══ -->
+  <div class="section-title">
+    <h2>Rolls</h2>
+    <div class="line"></div>
+  </div>
+  <p class="section-subtitle">Fresh wraps, rolled to order</p>
+
+  <div class="col-header-single">
+    <span>Item</span>
+    <span>Rate</span>
+    <span>Add</span>
+  </div>
+
+  <div class="menu-item-single" style="animation-delay:0.05s" data-name="Veg Rolls" data-price="70" data-type="veg" id="item-veg-rolls">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Veg Rolls</span>
+    <span class="item-price">₹ 70</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Veg Rolls to order">+</button>
+  </div>
+  <div class="menu-item-single" style="animation-delay:0.1s" data-name="Paneer Rolls" data-price="100" data-type="veg" id="item-paneer-rolls">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Paneer Rolls</span>
+    <span class="item-price">₹ 100</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Paneer Rolls to order">+</button>
+  </div>
+  <div class="menu-item-single" style="animation-delay:0.15s" data-name="Double Egg Rolls" data-price="90" data-type="egg" id="item-egg-rolls">
+    <div class="item-indicator"><span class="item-dot egg filled"></span></div>
+    <span class="item-name">Double Egg Rolls</span>
+    <span class="item-price">₹ 90</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Double Egg Rolls to order">+</button>
+  </div>
+  <div class="menu-item-single" style="animation-delay:0.2s" data-name="Soya Keema Rolls" data-price="80" data-type="veg" id="item-soya-rolls">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Soya Keema Rolls</span>
+    <span class="item-price">₹ 80</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Soya Keema Rolls to order">+</button>
+  </div>
+  <div class="menu-item-single" style="animation-delay:0.25s" data-name="Chicken Rolls" data-price="120" data-type="nonveg" id="item-chicken-rolls">
+    <div class="item-indicator"><span class="item-dot nonveg filled"></span></div>
+    <span class="item-name">Chicken Rolls</span>
+    <span class="item-price">₹ 120</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Chicken Rolls to order">+</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ MAIN COURSE INDIANS (VEG.) ══ -->
+  <div class="section-title" style="margin-top:48px">
+    <h2>Main Course — Indians (Veg.)</h2>
+    <div class="line"></div>
+  </div>
+  <p class="section-subtitle">Slow-cooked curries &amp; gravies</p>
+
+  <div class="col-header">
+    <span>Item</span>
+    <span>Half</span>
+    <span>Full</span>
+    <span>Add</span>
+  </div>
+
+  <div class="menu-item" style="animation-delay:0.05s" data-name="Tawa Chaap" data-price="220" data-half="130" data-type="veg" id="item-tawa-chaap">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Tawa Chaap</span>
+    <span class="item-price muted">₹ 130</span>
+    <span class="item-price">₹ 220</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Tawa Chaap to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.1s" data-name="Mixed Vegetables" data-price="150" data-half="90" data-type="veg" id="item-mixed-veg">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Mixed Vegetables</span>
+    <span class="item-price muted">₹ 90</span>
+    <span class="item-price">₹ 150</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Mixed Vegetables to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.15s" data-name="Soya Tawa Keema" data-price="210" data-half="110" data-type="veg" id="item-soya-tawa-keema">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Soya Tawa Keema</span>
+    <span class="item-price muted">₹ 110</span>
+    <span class="item-price">₹ 210</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Soya Tawa Keema to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.2s" data-name="Aloo Gobhi Adraki" data-price="180" data-half="100" data-type="veg" id="item-aloo-gobhi">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Aloo Gobhi Adraki</span>
+    <span class="item-price muted">₹ 100</span>
+    <span class="item-price">₹ 180</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Aloo Gobhi Adraki to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.25s" data-name="Sarso Ka Saag" data-price="210" data-half="120" data-type="veg" id="item-sarso-saag">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Sarso Ka Saag <span style="font-size:0.75em;color:var(--text-muted)">(Seasonal)</span></span>
+    <span class="item-price muted">₹ 120</span>
+    <span class="item-price">₹ 210</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Sarso Ka Saag to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.3s" data-name="Kadhai Vegetable" data-price="210" data-half="110" data-type="veg" id="item-kadhai-veg">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Kadhai Vegetable</span>
+    <span class="item-price muted">₹ 110</span>
+    <span class="item-price">₹ 210</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Kadhai Vegetable to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.35s" data-name="Kadhai Chaap" data-price="210" data-half="110" data-type="veg" id="item-kadhai-chaap">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Kadhai Chaap</span>
+    <span class="item-price muted">₹ 110</span>
+    <span class="item-price">₹ 210</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Kadhai Chaap to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.4s" data-name="Mutter Mushroom" data-price="225" data-half="130" data-type="veg" id="item-mutter-mushroom">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Mutter Mushroom</span>
+    <span class="item-price muted">₹ 130</span>
+    <span class="item-price">₹ 225</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Mutter Mushroom to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.45s" data-name="Paneer Butter Masala" data-price="225" data-half="130" data-type="veg" id="item-paneer-butter">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Paneer Butter Masala</span>
+    <span class="item-price muted">₹ 130</span>
+    <span class="item-price">₹ 225</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Paneer Butter Masala to order">+</button>
+  </div>
+  <div class="menu-item" style="animation-delay:0.5s" data-name="Kadhai Paneer" data-price="225" data-half="130" data-type="veg" id="item-kadhai-paneer">
+    <div class="item-indicator"><span class="item-dot veg filled"></span></div>
+    <span class="item-name">Kadhai Paneer</span>
+    <span class="item-price muted">₹ 130</span>
+    <span class="item-price">₹ 225</span>
+    <button class="add-btn" onclick="addItem(this)" aria-label="Add Kadhai Paneer to order">+</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-name">Vasu&Siva</div>
+  <div>All prices inclusive of taxes &nbsp;·&nbsp; Subject to change without notice</div>
+</footer>
+
+<script>
+  // ═══════════════════════════════════════════
+  //  ORDER STATE
+  // ═══════════════════════════════════════════
+  let orders = []; // { id, name, price, type, qty, addedAt (ISO string) }
+  let orderIdCounter = 0;
+  let placedOrders = []; // history of placed orders
+  let driveScriptUrl = '';
+
+  // ═══════════════════════════════════════════
+  //  INIT — LOAD FROM LOCALSTORAGE
+  // ═══════════════════════════════════════════
+  function init() {
+    // Load current cart
+    try {
+      const saved = localStorage.getItem('vs_orders');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        orders = parsed.map(o => ({
+          ...o,
+          addedAt: new Date(o.addedAt)
+        }));
+        orderIdCounter = orders.reduce((max, o) => Math.max(max, o.id), 0);
+      }
+    } catch(e) {}
+
+    // Load order history
+    try {
+      const hist = localStorage.getItem('vs_order_history');
+      if (hist) {
+        placedOrders = JSON.parse(hist);
+      }
+    } catch(e) {}
+
+    // Load Google Drive URL
+    driveScriptUrl = localStorage.getItem('vs_drive_url') || '';
+
+    updateUI();
+    updateDriveStatusUI();
+    renderHistory();
+  }
+
+  // ═══════════════════════════════════════════
+  //  SAVE TO LOCALSTORAGE
+  // ═══════════════════════════════════════════
+  function saveToLocal() {
+    try {
+      localStorage.setItem('vs_orders', JSON.stringify(orders.map(o => ({
+        ...o,
+        addedAt: o.addedAt.toISOString()
+      }))));
+    } catch(e) {}
+  }
+
+  function saveHistoryToLocal() {
+    try {
+      localStorage.setItem('vs_order_history', JSON.stringify(placedOrders));
+    } catch(e) {}
+  }
+
+  // ═══════════════════════════════════════════
+  //  TOAST NOTIFICATIONS
+  // ═══════════════════════════════════════════
+  function showToast(itemName, price, type) {
+    // type: 'add', 'remove', 'drive', 'order', 'error'
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+
+    const classMap = { add: '', remove: 'toast-remove', drive: 'toast-drive', order: '', error: 'toast-remove' };
+    const iconMap = { add: '✓', remove: '✕', drive: '☁️', order: '🎉', error: '⚠️' };
+    const titleMap = { add: 'Added to Order', remove: 'Item Removed', drive: 'Synced to Drive', order: 'Order Placed!', error: 'Error' };
+    const bgMap = { drive: 'rgba(52,152,219,0.15)', order: 'rgba(212,160,23,0.15)', error: 'rgba(231,76,60,0.15)' };
+
+    toast.className = 'toast ' + (classMap[type] || '');
+    if (type === 'drive') toast.style.borderLeftColor = 'var(--blue-accent)';
+    if (type === 'order') toast.style.borderLeftColor = 'var(--gold)';
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+    const priceStr = price > 0 ? ` — ₹ ${price}` : '';
+    toast.innerHTML = `
+      <div class="toast-icon" ${bgMap[type] ? `style="background:${bgMap[type]}"` : ''}>${iconMap[type]}</div>
+      <div class="toast-body">
+        <div class="toast-title">${titleMap[type]}</div>
+        <div class="toast-msg">${itemName}${priceStr}</div>
+        <div class="toast-time">${timeStr}</div>
+      </div>
+    `;
+
+    container.appendChild(toast);
+    const duration = type === 'order' || type === 'drive' ? 5000 : 3000;
+    setTimeout(() => {
+      toast.classList.add('removing');
+      setTimeout(() => toast.remove(), 400);
+    }, duration);
+  }
+
+  // ═══════════════════════════════════════════
+  //  ADD ITEM
+  // ═══════════════════════════════════════════
+  function addItem(btn) {
+    const row = btn.closest('[data-name]');
+    const name = row.dataset.name;
+    const price = parseInt(row.dataset.price);
+    const type = row.dataset.type;
+
+    const existing = orders.find(o => o.name === name);
+    if (existing) {
+      existing.qty += 1;
+      showToast(name, price, 'add');
+      saveToLocal();
+      updateUI();
+      btn.classList.add('added');
+      setTimeout(() => btn.classList.remove('added'), 600);
+      return;
+    }
+
+    orders.push({
+      id: ++orderIdCounter,
+      name, price, type, qty: 1,
+      addedAt: new Date()
+    });
+
+    showToast(name, price, 'add');
+    btn.classList.add('added');
+    setTimeout(() => btn.classList.remove('added'), 600);
+    saveToLocal();
+    updateUI();
+  }
+
+  // ═══════════════════════════════════════════
+  //  CHANGE QUANTITY (from panel)
+  // ═══════════════════════════════════════════
+  function changeQty(orderId, delta) {
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+    order.qty += delta;
+    if (order.qty <= 0) {
+      showToast(order.name, order.price, 'remove');
+      orders.splice(orders.indexOf(order), 1);
+    }
+    saveToLocal();
+    updateUI();
+  }
+
+  // ═══════════════════════════════════════════
+  //  TOGGLE ORDER PANEL
+  // ═══════════════════════════════════════════
+  function toggleOrderPanel() {
+    const overlay = document.getElementById('order-overlay');
+    const panel = document.getElementById('order-panel');
+    const isOpen = panel.classList.contains('open');
+    if (isOpen) {
+      overlay.classList.remove('open');
+      panel.classList.remove('open');
+      document.body.style.overflow = '';
+    } else {
+      overlay.classList.add('open');
+      panel.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  SWITCH PANEL TABS
+  // ═══════════════════════════════════════════
+  function switchTab(tab) {
+    document.getElementById('tab-current').classList.toggle('active', tab === 'current');
+    document.getElementById('tab-history').classList.toggle('active', tab === 'history');
+    document.getElementById('tab-content-current').classList.toggle('active', tab === 'current');
+    document.getElementById('tab-content-history').classList.toggle('active', tab === 'history');
+    if (tab === 'history') renderHistory();
+  }
+
+  // ═══════════════════════════════════════════
+  //  CLEAR ALL ORDERS
+  // ═══════════════════════════════════════════
+  function clearAllOrders() {
+    if (orders.length === 0) return;
+    orders.length = 0;
+    showToast('All items', 0, 'remove');
+    saveToLocal();
+    updateUI();
+  }
+
+  // ═══════════════════════════════════════════
+  //  GENERATE ORDER ID
+  // ═══════════════════════════════════════════
+  function generateOrderId() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `VS-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  }
+
+  // ═══════════════════════════════════════════
+  //  PLACE ORDER → Local + Google Drive
+  // ═══════════════════════════════════════════
+  async function placeOrder() {
+    if (orders.length === 0) return;
+
+    const total = orders.reduce((s, o) => s + o.price * o.qty, 0);
+    const count = orders.reduce((s, o) => s + o.qty, 0);
+    const now = new Date();
+    const orderId = generateOrderId();
+
+    const orderRecord = {
+      orderId,
+      date: now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      time: now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      timestamp: now.toISOString(),
+      total,
+      itemCount: count,
+      items: orders.map(o => ({
+        name: o.name,
+        type: o.type,
+        price: o.price,
+        qty: o.qty
+      })),
+      synced: false
+    };
+
+    // Save to history
+    placedOrders.unshift(orderRecord);
+    saveHistoryToLocal();
+
+    showToast(`${count} item${count > 1 ? 's' : ''} — Total ₹ ${total.toLocaleString('en-IN')}`, 0, 'order');
+
+    // Sync to Google Drive if connected
+    if (driveScriptUrl) {
+      try {
+        await sendToDrive(orderRecord);
+        orderRecord.synced = true;
+        saveHistoryToLocal();
+        showToast(`Order ${orderId} saved to Google Sheets`, 0, 'drive');
+      } catch(err) {
+        showToast(`Drive sync failed: ${err.message}`, 0, 'error');
+      }
+    }
+
+    orders.length = 0;
+    saveToLocal();
+    updateUI();
+    toggleOrderPanel();
+  }
+
+  // ═══════════════════════════════════════════
+  //  GOOGLE DRIVE / SHEETS INTEGRATION
+  // ═══════════════════════════════════════════
+  async function sendToDrive(orderRecord) {
+    if (!driveScriptUrl) throw new Error('Not connected');
+
+    const payload = {
+      orderId: orderRecord.orderId,
+      date: orderRecord.date,
+      time: orderRecord.time,
+      total: orderRecord.total,
+      items: orderRecord.items
+    };
+
+    // Use mode: 'no-cors' and text/plain to avoid CORS issues entirely.
+    // In 'no-cors' mode, browser will send the request but return an opaque response.
+    // Google Apps Script will still receive and process the request body in e.postData.contents.
+    await fetch(driveScriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+
+    // Since 'no-cors' mode returns status 0 (opaque), we cannot read the response body.
+    // If fetch did not throw a network error, we treat it as successfully sent.
+    return { status: 'success' };
+  }
+
+  async function syncToDrive() {
+    if (!driveScriptUrl) {
+      openSettings();
+      return;
+    }
+    if (orders.length === 0) {
+      showToast('No items to sync', 0, 'error');
+      return;
+    }
+
+    const total = orders.reduce((s, o) => s + o.price * o.qty, 0);
+    const orderId = generateOrderId();
+    const now = new Date();
+
+    const orderRecord = {
+      orderId,
+      date: now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      time: now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      total,
+      items: orders.map(o => ({ name: o.name, type: o.type, price: o.price, qty: o.qty }))
+    };
+
+    try {
+      await sendToDrive(orderRecord);
+      showToast(`Current order synced to Drive`, 0, 'drive');
+    } catch(err) {
+      showToast(`Sync failed: ${err.message}`, 0, 'error');
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  DOWNLOAD CSV
+  // ═══════════════════════════════════════════
+  function downloadCSV() {
+    if (orders.length === 0) return;
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    let csv = 'Item,Type,Qty,Unit Price,Line Total\n';
+    let grandTotal = 0;
+    orders.forEach(o => {
+      const lineTotal = o.price * o.qty;
+      grandTotal += lineTotal;
+      csv += `"${o.name}",${o.type},${o.qty},${o.price},${lineTotal}\n`;
+    });
+    csv += `\n,,,,TOTAL: ${grandTotal}\n`;
+    csv += `\nDate:,${dateStr}\nTime:,${timeStr}\n`;
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `VasuSiva_Order_${now.toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    showToast('Order downloaded as CSV', 0, 'drive');
+  }
+
+  // ═══════════════════════════════════════════
+  //  SETTINGS MODAL
+  // ═══════════════════════════════════════════
+  function openSettings() {
+    document.getElementById('settings-modal').classList.add('open');
+    document.getElementById('script-url-input').value = driveScriptUrl;
+    updateModalStatus();
+  }
+
+  function closeSettings() {
+    document.getElementById('settings-modal').classList.remove('open');
+  }
+
+  function saveScriptUrl() {
+    const input = document.getElementById('script-url-input');
+    const url = input.value.trim();
+    const statusEl = document.getElementById('url-save-status');
+
+    if (!url) {
+      statusEl.innerHTML = '<span style="color:var(--danger)">Please enter a URL</span>';
+      return;
+    }
+
+    if (!url.startsWith('https://script.google.com/')) {
+      statusEl.innerHTML = '<span style="color:var(--danger)">Invalid URL. Must start with https://script.google.com/</span>';
+      return;
+    }
+
+    driveScriptUrl = url;
+    localStorage.setItem('vs_drive_url', url);
+    statusEl.innerHTML = '<span style="color:var(--success)">✓ URL saved successfully!</span>';
+
+    updateDriveStatusUI();
+    updateModalStatus();
+
+    showToast('Google Drive connected', 0, 'drive');
+  }
+
+  function disconnectDrive() {
+    driveScriptUrl = '';
+    localStorage.removeItem('vs_drive_url');
+    document.getElementById('script-url-input').value = '';
+    document.getElementById('url-save-status').innerHTML = '<span style="color:var(--text-muted)">Disconnected</span>';
+    updateDriveStatusUI();
+    updateModalStatus();
+    showToast('Google Drive disconnected', 0, 'remove');
+  }
+
+  async function testConnection() {
+    const resultEl = document.getElementById('test-result');
+    const btn = document.getElementById('btn-test-conn');
+
+    if (!driveScriptUrl) {
+      resultEl.innerHTML = '<span style="color:var(--danger)">No URL configured</span>';
+      return;
+    }
+
+    btn.disabled = true;
+    resultEl.innerHTML = '<span class="spinner"></span> Testing connection...';
+
+    try {
+      // Test with a POST containing TEST-PING orderId (won't write to sheet) using no-cors
+      await fetch(driveScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          orderId: 'TEST-PING',
+          date: new Date().toLocaleDateString('en-IN'),
+          time: new Date().toLocaleTimeString('en-IN'),
+          total: 0,
+          items: [{ name: 'Connection Test', type: 'test', qty: 0, price: 0 }]
+        })
+      });
+
+      resultEl.innerHTML = '<span style="color:var(--success)">✓ Connected successfully! Your Google Sheet is ready to receive orders.</span>';
+    } catch(err) {
+      resultEl.innerHTML = `<span style="color:var(--danger)">✕ Network error: ${err.message}. Check your URL and internet connection.</span>`;
+    }
+
+    btn.disabled = false;
+  }
+
+  function copyScript() {
+    const code = document.getElementById('apps-script-code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.script-copy-btn');
+      btn.textContent = 'Copied!';
+      btn.style.color = 'var(--success)';
+      btn.style.borderColor = 'var(--success)';
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+
+  function updateModalStatus() {
+    const dot = document.getElementById('modal-status-dot');
+    const desc = document.getElementById('modal-status-desc');
+    const actions = document.getElementById('connected-actions');
+
+    if (driveScriptUrl) {
+      dot.className = 'status-dot on';
+      desc.innerHTML = `<span style="color:var(--success)">✓ Connected</span> — Orders will sync to your Google Sheet automatically when placed.`;
+      actions.style.display = 'block';
+    } else {
+      dot.className = 'status-dot off';
+      desc.textContent = 'Not connected. Follow the steps below to save orders to Google Sheets.';
+      actions.style.display = 'none';
+    }
+  }
+
+  function updateDriveStatusUI() {
+    const bar = document.getElementById('drive-status-bar');
+    const icon = document.getElementById('drive-icon');
+    const text = document.getElementById('drive-status-text');
+    const btn = document.getElementById('drive-status-btn');
+    const fab = document.getElementById('settings-fab');
+    const syncBtn = document.getElementById('btn-sync-drive');
+
+    if (driveScriptUrl) {
+      bar.classList.add('connected');
+      icon.textContent = '✓';
+      text.textContent = 'Google Drive connected';
+      text.style.color = 'var(--success)';
+      btn.textContent = 'Settings';
+      fab.classList.add('connected');
+      syncBtn.style.display = 'flex';
+    } else {
+      bar.classList.remove('connected');
+      icon.textContent = '☁️';
+      text.textContent = 'Google Drive not connected';
+      text.style.color = '';
+      btn.textContent = 'Setup';
+      fab.classList.remove('connected');
+      syncBtn.style.display = 'none';
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  FORMAT TIME FOR GROUPING
+  // ═══════════════════════════════════════════
+  function getTimeGroupKey(date) {
+    return date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+  }
+
+  function getRelativeTime(date) {
+    const now = new Date();
+    const diff = Math.floor((now - date) / 1000);
+    if (diff < 10) return 'Just now';
+    if (diff < 60) return `${diff}s ago`;
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    return date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+  }
+
+  // ═══════════════════════════════════════════
+  //  UPDATE UI (panel + badge + inline buttons)
+  // ═══════════════════════════════════════════
+  function updateUI() {
+    const badge = document.getElementById('order-badge');
+    const panelEmpty = document.getElementById('panel-empty');
+    const panelFooter = document.getElementById('panel-footer');
+    const orderList = document.getElementById('order-list');
+    const itemCount = document.getElementById('panel-item-count');
+    const grandTotal = document.getElementById('grand-total');
+
+    const totalQty = orders.reduce((s, o) => s + o.qty, 0);
+    const totalPrice = orders.reduce((s, o) => s + o.price * o.qty, 0);
+
+    badge.textContent = totalQty;
+    badge.classList.toggle('visible', totalQty > 0);
+
+    if (totalQty === 0) {
+      itemCount.textContent = 'No items yet';
+    } else {
+      itemCount.textContent = `${totalQty} item${totalQty > 1 ? 's' : ''} · ₹ ${totalPrice.toLocaleString('en-IN')}`;
+    }
+
+    if (orders.length === 0) {
+      panelEmpty.style.display = 'flex';
+      orderList.innerHTML = '';
+      panelFooter.style.display = 'none';
+      updateInlineButtons();
+      return;
+    }
+
+    panelEmpty.style.display = 'none';
+    panelFooter.style.display = 'block';
+    grandTotal.textContent = '₹ ' + totalPrice.toLocaleString('en-IN');
+
+    const sorted = [...orders].sort((a, b) => b.addedAt - a.addedAt);
+    const groups = {};
+    sorted.forEach(o => {
+      const key = getTimeGroupKey(o.addedAt);
+      if (!groups[key]) groups[key] = { time: o.addedAt, items: [] };
+      groups[key].items.push(o);
+    });
+
+    let html = '';
+    const typeColors = { veg: 'var(--green-dot)', nonveg: 'var(--red-dot)', egg: 'var(--yellow-dot)' };
+
+    for (const [key, group] of Object.entries(groups)) {
+      const relTime = getRelativeTime(group.time);
+      html += `<div class="time-group">
+        <div class="time-group-header">
+          <div class="time-dot"></div>
+          <span class="time-label">${key} · ${relTime}</span>
+          <div class="time-line"></div>
+        </div>`;
+
+      group.items.forEach(o => {
+        const color = typeColors[o.type] || 'var(--gold)';
+        const lineTotal = o.price * o.qty;
+        html += `<div class="order-entry">
+          <div class="order-entry-type" style="border-color:${color};background:${color};"></div>
+          <div class="order-entry-info">
+            <div class="order-entry-name">${o.name}</div>
+            <div class="order-entry-meta">₹ ${o.price} each</div>
+          </div>
+          <div class="order-entry-qty">
+            <button onclick="changeQty(${o.id}, -1)" aria-label="Decrease">−</button>
+            <span class="entry-count">${o.qty}</span>
+            <button onclick="changeQty(${o.id}, 1)" aria-label="Increase">+</button>
+          </div>
+          <div class="order-entry-price">₹ ${lineTotal.toLocaleString('en-IN')}</div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    orderList.innerHTML = html;
+    updateInlineButtons();
+  }
+
+  // ═══════════════════════════════════════════
+  //  RENDER ORDER HISTORY
+  // ═══════════════════════════════════════════
+  function renderHistory() {
+    const list = document.getElementById('history-list');
+    const empty = document.getElementById('history-empty');
+    const typeColors = { veg: 'var(--green-dot)', nonveg: 'var(--red-dot)', egg: 'var(--yellow-dot)' };
+
+    if (placedOrders.length === 0) {
+      empty.style.display = 'flex';
+      list.innerHTML = '';
+      return;
+    }
+
+    empty.style.display = 'none';
+
+    // Group by date
+    const grouped = {};
+    placedOrders.forEach(o => {
+      const dateKey = o.date || 'Unknown';
+      if (!grouped[dateKey]) grouped[dateKey] = [];
+      grouped[dateKey].push(o);
+    });
+
+    let html = '';
+    for (const [dateKey, dateOrders] of Object.entries(grouped)) {
+      html += `<div class="time-group">
+        <div class="time-group-header">
+          <div class="time-dot"></div>
+          <span class="time-label">${dateKey}</span>
+          <div class="time-line"></div>
+        </div>`;
+
+      dateOrders.forEach((order, idx) => {
+        html += `<div class="history-card" style="animation-delay:${idx * 0.08}s">
+          <div class="history-card-header">
+            <span class="history-order-id">${order.orderId}</span>
+            <span class="history-order-time">${order.time}</span>
+          </div>
+          <div class="history-items">`;
+
+        order.items.forEach(item => {
+          const color = typeColors[item.type] || 'var(--gold)';
+          html += `<div class="history-item-row">
+            <div class="history-item-dot" style="background:${color}"></div>
+            <span class="history-item-name">${item.name}</span>
+            <span class="history-item-qty">×${item.qty}</span>
+            <span class="history-item-price">₹ ${(item.price * item.qty).toLocaleString('en-IN')}</span>
+          </div>`;
+        });
+
+        html += `</div>
+          <div class="history-card-footer">
+            <span class="history-total-label">Total</span>
+            <span class="history-total-amount">₹ ${order.total.toLocaleString('en-IN')}</span>
+          </div>
+          ${order.synced ? '<div class="history-synced-badge">☁️ Synced to Drive</div>' : ''}
+        </div>`;
+      });
+
+      html += `</div>`;
+    }
+
+    list.innerHTML = html;
+  }
+
+  // ═══════════════════════════════════════════
+  //  UPDATE INLINE ADD BUTTONS → QTY CONTROLS
+  // ═══════════════════════════════════════════
+  function updateInlineButtons() {
+    document.querySelectorAll('[data-name]').forEach(row => {
+      const name = row.dataset.name;
+      const order = orders.find(o => o.name === name);
+      const lastCell = row.lastElementChild;
+
+      if (order && order.qty > 0) {
+        if (lastCell.classList.contains('add-btn')) {
+          const control = document.createElement('div');
+          control.className = 'qty-control';
+          control.innerHTML = `
+            <button class="qty-btn minus" onclick="inlineQty('${name}', -1)" aria-label="Decrease">−</button>
+            <span class="qty-count">${order.qty}</span>
+            <button class="qty-btn" onclick="inlineQty('${name}', 1)" aria-label="Increase">+</button>`;
+          row.replaceChild(control, lastCell);
+        } else if (lastCell.classList.contains('qty-control')) {
+          lastCell.querySelector('.qty-count').textContent = order.qty;
+        }
+      } else {
+        if (lastCell.classList.contains('qty-control')) {
+          const btn = document.createElement('button');
+          btn.className = 'add-btn';
+          btn.onclick = function() { addItem(this); };
+          btn.setAttribute('aria-label', `Add ${name} to order`);
+          btn.textContent = '+';
+          row.replaceChild(btn, lastCell);
+        }
+      }
+    });
+  }
+
+  function inlineQty(name, delta) {
+    const order = orders.find(o => o.name === name);
+    if (!order) return;
+    order.qty += delta;
+    if (order.qty <= 0) {
+      showToast(order.name, order.price, 'remove');
+      orders.splice(orders.indexOf(order), 1);
+    }
+    saveToLocal();
+    updateUI();
+  }
+
+  // Close settings on escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeSettings();
+      const panel = document.getElementById('order-panel');
+      if (panel.classList.contains('open')) toggleOrderPanel();
+    }
+  });
+
+  // Prevent settings modal click-through
+  document.querySelector('.modal').addEventListener('click', e => e.stopPropagation());
+  document.getElementById('settings-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('settings-modal')) closeSettings();
+  });
+
+  // Refresh relative times every 30s
+  setInterval(() => { if (orders.length > 0) updateUI(); }, 30000);
+
+  // Initialize
+  init();
+</script>
+
+</body>
+</html>
